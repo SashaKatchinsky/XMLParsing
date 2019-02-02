@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Gems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="https://www.epam.by/javaweb/evgeniyyaskecih/medicines"
+      xsi:schemaLocation="https://www.epam.by/javaweb/evgeniyyaskecih/medicines Gems.xsd">
+    <Gem name="Diamond">
+        <preciousnes>precious</preciousnes>
+        <origin>Tanzania</origin>
+        <visualParameter>
+            <color>BLUE</color>
+            <transparency>89</transparency>
+            <edgesCount>6</edgesCount>
+        </visualParameter>
+        <value>1.25</value>
+        <date>1999-12-07</date>
+        <time>02:34:56</time>
+    </Gem>
+    <Gem name="Sapphire">
+        <preciousnes>precious</preciousnes>
+        <origin>Belarus</origin>
+        <visualParameter>
+            <color>BLUE</color>
+            <transparency>67</transparency>
+            <edgesCount>8</edgesCount>
+        </visualParameter>
+        <value>1.37</value>
+        <date>1998-11-08</date>
+        <time>08:56:02</time>
+    </Gem>
+    <Gem name="Amethyst">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>Russia</origin>
+        <visualParameter>
+            <color>BLACK</color>
+            <transparency>0</transparency>
+            <edgesCount>4</edgesCount>
+        </visualParameter>
+        <value>3.34</value>
+        <date>2018-07-23</date>
+        <time>17:13:13</time>
+    </Gem>
+    <Gem name="Aquamarine">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>China</origin>
+        <visualParameter>
+            <color>RED</color>
+            <transparency>45</transparency>
+            <edgesCount>9</edgesCount>
+        </visualParameter>
+        <value>2.22</value>
+        <date>2015-08-12</date>
+        <time>23:28:11</time>
+    </Gem>
+    <Gem name="Emerald">
+        <preciousnes>precious</preciousnes>
+        <origin>Thailand</origin>
+        <visualParameter>
+            <color>GREEN</color>
+            <transparency>79</transparency>
+            <edgesCount>14</edgesCount>
+        </visualParameter>
+        <value>1.11</value>
+        <date>2011-05-04</date>
+        <time>14:59:59</time>
+    </Gem>
+    <Gem name="Quartz">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>USA</origin>
+        <visualParameter>
+            <color>GREEN</color>
+            <transparency>34</transparency>
+            <edgesCount>7</edgesCount>
+        </visualParameter>
+        <value>6.76</value>
+        <date>2007-11-10</date>
+        <time>13:45:11</time>
+    </Gem>
+    <Gem name="Agate">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>Brasilia</origin>
+        <visualParameter>
+            <color>PINC</color>
+            <transparency>2</transparency>
+            <edgesCount>4</edgesCount>
+        </visualParameter>
+        <value>5.39</value>
+        <date>2001-06-09</date>
+        <time>09:12:49</time>
+    </Gem>
+    <Gem name="Rubin">
+        <preciousnes>precious</preciousnes>
+        <origin>Malaysia</origin>
+        <visualParameter>
+            <color>RED</color>
+            <transparency>41</transparency>
+            <edgesCount>10</edgesCount>
+        </visualParameter>
+        <value>1.25</value>
+        <date>2010-01-27</date>
+        <time>16:28:12</time>
+    </Gem>
+    <Gem name="Brilliant">
+        <preciousnes>precious</preciousnes>
+        <origin>India</origin>
+        <visualParameter>
+            <color>BLUE</color>
+            <transparency>75</transparency>
+            <edgesCount>12</edgesCount>
+        </visualParameter>
+        <value>0.78</value>
+        <date>2006-02-14</date>
+        <time>18:56:19</time>
+    </Gem>
+    <Gem name="Tourmalin">
+        <preciousnes>precious</preciousnes>
+        <origin>Australia</origin>
+        <visualParameter>
+            <color>YELLOW</color>
+            <transparency>55</transparency>
+            <edgesCount>14</edgesCount>
+        </visualParameter>
+        <value>5.98</value>
+        <date>1898-09-01</date>
+        <time>22:40:40</time>
+    </Gem>
+    <Gem name="Tanzanite">
+        <preciousnes>precious</preciousnes>
+        <origin>Tanzania</origin>
+        <visualParameter>
+            <color>BLACK</color>
+            <transparency>97</transparency>
+            <edgesCount>13</edgesCount>
+        </visualParameter>
+        <value>0.35</value>
+        <date>1945-11-11</date>
+        <time>15:23:34</time>
+    </Gem>
+    <Gem name="Rhinestone">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>Maxica</origin>
+        <visualParameter>
+            <color>WHITE</color>
+            <transparency>37</transparency>
+            <edgesCount>13</edgesCount>
+        </visualParameter>
+        <value>2.95</value>
+        <date>1975-07-11</date>
+        <time>03:01:04</time>
+    </Gem>
+    <Gem name="Opal">
+        <preciousnes>precious</preciousnes>
+        <origin>Mexica</origin>
+        <visualParameter>
+            <color>RED</color>
+            <transparency>17</transparency>
+            <edgesCount>5</edgesCount>
+        </visualParameter>
+        <value>1.91</value>
+        <date>1998-03-17</date>
+        <time>19:18:12</time>
+    </Gem>
+    <Gem name="Topaz">
+        <preciousnes>precious</preciousnes>
+        <origin>Bangladesh</origin>
+        <visualParameter>
+            <color>WHITE</color>
+            <transparency>43</transparency>
+            <edgesCount>7</edgesCount>
+        </visualParameter>
+        <value>2.22</value>
+        <date>1977-08-03</date>
+        <time>23:01:15</time>
+    </Gem>
+    <Gem name="Citrine">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>Germany</origin>
+        <visualParameter>
+            <color>ORANGE</color>
+            <transparency>7</transparency>
+            <edgesCount>11</edgesCount>
+        </visualParameter>
+        <value>1.23</value>
+        <date>1955-07-25</date>
+        <time>05:34:55</time>
+    </Gem>
+    <Gem name="Сhrysolite">
+        <preciousnes>semiPrecious</preciousnes>
+        <origin>Japan</origin>
+        <visualParameter>
+            <color>GREEN</color>
+            <transparency>57</transparency>
+            <edgesCount>14</edgesCount>
+        </visualParameter>
+        <value>3.33</value>
+        <date>1965-06-29</date>
+        <time>08:20:30</time>
+    </Gem>
+</Gems>
