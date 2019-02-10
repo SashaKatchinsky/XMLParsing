@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Gems>
+    <Gem name="Diamond">
+        <preciousnes>precious</preciousnes>
+        <origin>Tanzania</origin>
+        <visualParameter>
+            <color>BLUE</color>
+            <transparency>89</transparency>
+            <edgesCount>6</edgesCount>
+        </visualParameter>
+        <value>1.25</value>
+        <date>1999-12-07</date>
+        <time>02:34:56</time>
+    </Gem>
+</Gems>

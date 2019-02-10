@@ -1,13 +1,20 @@
 package by.epam.java.yukhimchuk.XMLParsing.bean;
 
+import by.epam.java.yukhimchuk.XMLParsing.action.StringToLocalDateConverter;
+import by.epam.java.yukhimchuk.XMLParsing.action.StringToLocalTimeConverter;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+
 public class Gem {
     private String name;
     private Preciousnes preciousnes;
     private String origin;
     private VisualParameter visualParameter;
     private double value;
-    private Date date;
-    private Time time;
+    private LocalDate date;
+    private LocalTime time;
 
     public Gem() { }
 
@@ -17,11 +24,11 @@ public class Gem {
         this.origin = origin;
         this.visualParameter = new VisualParameter(color , transparency , edgesCount);
         this.value = value;
-        this.date = new Date(date);
-        this.time = new Time(time);
+        this.date = StringToLocalDateConverter.getInstance().convert(date);
+        this.time = StringToLocalTimeConverter.getInstance().convert(time);
     }
 
-    public Gem(String name, Preciousnes preciousnes, String origin, VisualParameter visualParameter, double value, Date date, Time time) {
+    public Gem(String name, Preciousnes preciousnes, String origin, VisualParameter visualParameter, double value, LocalDate date, LocalTime time) {
         this.name = name;
         this.preciousnes = preciousnes;
         this.origin = origin;
@@ -51,11 +58,11 @@ public class Gem {
         return value;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
@@ -79,16 +86,41 @@ public class Gem {
         this.value = value;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gem gem = (Gem) o;
+        return Double.compare(gem.value, value) == 0 &&
+                name.equals(gem.name) &&
+                preciousnes == gem.preciousnes &&
+                origin.equals(gem.origin) &&
+                visualParameter.equals(gem.visualParameter) &&
+                date.equals(gem.date) &&
+                time.equals(gem.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, preciousnes, origin, visualParameter, value, date, time);
+    }
+
+    @Override
     public String toString() {
-        return name + " " + preciousnes + " " + origin + " " + visualParameter + " " + value + " " + date + " " + time;
+        return name +
+                " " + preciousnes +
+                " " + origin +
+                " " + visualParameter +
+                " " + value +
+                " " + date +
+                " " + time;
     }
 }

@@ -1,6 +1,7 @@
 package by.epam.java.yukhimchuk.XMLParsing.builder;
 
 import by.epam.java.yukhimchuk.XMLParsing.bean.Gem;
+import by.epam.java.yukhimchuk.XMLParsing.exception.SAXBuildException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
@@ -14,22 +15,20 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class SAXBuilder extends BaseBuilder {
-    private static final Logger logger = LogManager.getLogger(SAXBuilder.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(SAXBuilder.class.getName());
     private InputStream fileContent;
 
     public SAXBuilder(InputStream fileContent) {
         this.fileContent = fileContent;
     }
 
-    public void buildGemList() {
+    public void buildGemList() throws SAXBuildException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = null;
         try {
             saxParser = saxParserFactory.newSAXParser();
-        } catch (ParserConfigurationException e) {
-            logger.fatal(e);
-        } catch (SAXException e) {
-            logger.fatal(e);
+        } catch (ParserConfigurationException | SAXException e) {
+            LOGGER.fatal(e);
         }
         try {
             saxParser.parse(fileContent , new DefaultHandler() {
@@ -106,10 +105,9 @@ public class SAXBuilder extends BaseBuilder {
                     }
                 }
             });
-        } catch (SAXException e) {
-            logger.fatal(e);
-        } catch (IOException e) {
-            logger.fatal(e);
+        } catch (SAXException | IOException e) {
+            LOGGER.fatal(e);
+            throw new SAXBuildException(e);
         }
     }
 }

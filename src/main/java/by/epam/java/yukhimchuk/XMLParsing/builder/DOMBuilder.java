@@ -1,6 +1,7 @@
 package by.epam.java.yukhimchuk.XMLParsing.builder;
 
 import by.epam.java.yukhimchuk.XMLParsing.bean.Gem;
+import by.epam.java.yukhimchuk.XMLParsing.exception.DOMBuildException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -15,7 +16,7 @@ import java.io.InputStream;
 import java.util.StringTokenizer;
 
 public class DOMBuilder extends BaseBuilder {
-    private static final Logger logger = LogManager.getLogger(DOMBuilder.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(DOMBuilder.class.getName());
     private InputStream fileContent;
 
     public DOMBuilder(InputStream fileContent) {
@@ -23,24 +24,23 @@ public class DOMBuilder extends BaseBuilder {
     }
 
     @Override
-    public void buildGemList() {
+    public void buildGemList() throws DOMBuildException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         try {
             builder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            logger.fatal(e);
+            LOGGER.fatal(e);
         }
         Document document = null;
         try {
             document = builder.parse(fileContent);
-        } catch (SAXException e) {
-            logger.fatal(e);
-        } catch (IOException e) {
-            logger.fatal(e);
+        } catch (SAXException | IOException e) {
+            LOGGER.fatal(e);
+            throw new DOMBuildException(e);
         }
         NodeList gemNodeList = document.getElementsByTagName("Gem");
-        for (int i = 0 ; i < gemNodeList.getLength() ; i++){
+        for (int i = 0 ; i < gemNodeList.getLength() ; i++) {
             String name = gemNodeList.item(i).getAttributes().item(0).getTextContent();
             StringTokenizer stringTokenizer = new StringTokenizer(gemNodeList.item(i).getTextContent());
             String preciousnes = stringTokenizer.nextToken();

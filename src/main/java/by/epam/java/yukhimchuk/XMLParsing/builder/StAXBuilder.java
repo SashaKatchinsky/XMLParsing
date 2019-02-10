@@ -1,6 +1,11 @@
 package by.epam.java.yukhimchuk.XMLParsing.builder;
 
-import by.epam.java.yukhimchuk.XMLParsing.bean.*;
+import by.epam.java.yukhimchuk.XMLParsing.action.StringToLocalDateConverter;
+import by.epam.java.yukhimchuk.XMLParsing.action.StringToLocalTimeConverter;
+import by.epam.java.yukhimchuk.XMLParsing.bean.Gem;
+import by.epam.java.yukhimchuk.XMLParsing.bean.Preciousnes;
+import by.epam.java.yukhimchuk.XMLParsing.bean.VisualParameter;
+import by.epam.java.yukhimchuk.XMLParsing.exception.StAXBuildException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,20 +14,22 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class StAXBuilder extends BaseBuilder {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     InputStream fileContent;
     public StAXBuilder(InputStream fileContent) {
         this.fileContent = fileContent;
     }
 
     @Override
-    public void buildGemList() {
+    public void buildGemList() throws StAXBuildException {
         Gem gem = null;
         VisualParameter visualParameter = null;
-        Date date = null;
-        Time time = null;
+        LocalDate date = null;
+        LocalTime time = null;
 
         File file = new File(DOMBuilder.class.getResource("/Gems.xml").getPath());
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -30,18 +37,17 @@ public class StAXBuilder extends BaseBuilder {
         try {
             streamReader = factory.createXMLStreamReader(fileContent);
         } catch (XMLStreamException e) {
-            logger.fatal(e);
+            LOGGER.fatal(e);
+            throw new StAXBuildException(e);
         }
         while (true) {
             try {
-                if (!streamReader.hasNext()) break;
-            } catch (XMLStreamException e) {
-                logger.fatal(e);
-            }
-            try {
+                if (!streamReader.hasNext()) {
+                    break;
+                }
                 streamReader.next();
             } catch (XMLStreamException e) {
-                logger.fatal(e);
+                LOGGER.fatal(e);
             }
             if (streamReader.getEventType() == XMLStreamReader.START_ELEMENT) {
                 if(streamReader.getLocalName().equals("Gem")) {
@@ -72,13 +78,14 @@ public class StAXBuilder extends BaseBuilder {
                         gem.setValue(Double.parseDouble(streamReader.getElementText()));
                     }
                     if (streamReader.getLocalName().equals("date")) {
-                        date = new Date(streamReader.getElementText());
+                        date = StringToLocalDateConverter.getInstance().convert(streamReader.getElementText());
                     }
                     if (streamReader.getLocalName().equals("time")) {
-                        time = new Time(streamReader.getElementText());
+                        time = StringToLocalTimeConverter.getInstance().convert(streamReader.getElementText());
                     }
                 } catch (XMLStreamException e) {
-                    logger.fatal(e);
+                    LOGGER.fatal(e);
+                    throw new StAXBuildException(e);
                 }
             }
             if(streamReader.getEventType() == XMLStreamReader.END_ELEMENT) {

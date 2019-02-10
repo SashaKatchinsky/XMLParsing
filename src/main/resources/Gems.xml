@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Gems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns="https://www.epam.by/javaweb/evgeniyyaskecih/medicines"
-      xsi:schemaLocation="https://www.epam.by/javaweb/evgeniyyaskecih/medicines Gems.xsd">
+      xmlns="https://www.epam.by/javaweb/sanya/gems"
+      xsi:schemaLocation="https://www.epam.by/javaweb/sanya/gems Gems.xsd">
     <Gem name="Diamond">
         <preciousnes>precious</preciousnes>
         <origin>Tanzania</origin>

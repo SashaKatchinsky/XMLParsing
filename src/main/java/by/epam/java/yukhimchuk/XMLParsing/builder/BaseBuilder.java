@@ -1,6 +1,9 @@
 package by.epam.java.yukhimchuk.XMLParsing.builder;
 
 import by.epam.java.yukhimchuk.XMLParsing.bean.Gem;
+import by.epam.java.yukhimchuk.XMLParsing.exception.DOMBuildException;
+import by.epam.java.yukhimchuk.XMLParsing.exception.SAXBuildException;
+import by.epam.java.yukhimchuk.XMLParsing.exception.StAXBuildException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,5 +19,5 @@ public abstract class BaseBuilder {
         return gemList;
     }
 
-    public abstract void buildGemList() throws ParserConfigurationException, SAXException, IOException, XMLStreamException;
+    public abstract void buildGemList() throws ParserConfigurationException, SAXException, IOException, XMLStreamException, DOMBuildException, SAXBuildException, StAXBuildException;
 }

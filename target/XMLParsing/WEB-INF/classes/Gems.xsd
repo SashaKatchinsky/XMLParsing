@@ -1,58 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-        targetNamespace="https://www.epam.by/javaweb/evgeniyyaskecih/medicines"
-        xmlns:tns="https://www.epam.by/javaweb/evgeniyyaskecih/medicines"
+        targetNamespace="https://www.epam.by/javaweb/sanya/gems"
+        xmlns:tns="https://www.epam.by/javaweb/sanya/gems"
         elementFormDefault="qualified">
-    <element name="Gems">
-        <complexType>
+        <element name="Gems">
+            <complexType>
+                <sequence>
+                    <element name="Gem"
+                             type="tns:Gem"
+                             maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+        </element>
+        <complexType name="Gem">
             <sequence>
-                <element name="Gem"  type="tns:Gem"
-                            minOccurs="16"
-                            maxOccurs="unbounded"/>
+                <element name="preciousnes" type="tns:Preciousnes"/>
+                <element name="origin" type="string"/>
+                <element name="visualParameter" type="tns:VisualParameter"/>
+                <element name="value" type="double"/>
+                <element name="date" type="date"/>
+                <element name="time" type="time"/>
             </sequence>
-        </complexType>
-    </element>
-    <complexType name="Gem">
-        <sequence>
-            <element name="preciousnes">
+            <attribute name="name" use="required">
                 <simpleType>
-                    <restriction base="string">
-                        <enumeration value="precious"/>
-                        <enumeration value="semiPrecious"/>
+                    <restriction base="ID"/>
+                </simpleType>
+            </attribute>
+        </complexType>
+
+    <simpleType name="Preciousnes">
+        <restriction base="string">
+            <enumeration value="precious"/>
+            <enumeration value="semiPrecious"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="VisualParameter">
+        <sequence>
+            <element name="color" type="string"/>
+            <element name="transparency">
+                <simpleType>
+                    <restriction base="integer">
+                        <minInclusive value="0"/>
+                        <maxExclusive value="100"/>
                     </restriction>
                 </simpleType>
             </element>
-            <element name="origin" type="string"/>
-            <element name="visualParameter">
-                <complexType>
-                    <sequence>
-                        <element name="color" type="string"/>
-                        <element name="transparency" type="nonNegativeInteger" maxOccurs="100"/>
-                        <!--<element name="edgesCount" type="positiveInteger" minOccurs="4" maxOccurs="15"/>-->
-                        <element name="edgesCount">
-                            <simpleType>
-                                <restriction base="positiveInteger">
-                                    <minInclusive value="4"/>
-                                    <maxExclusive value="15"/>
-                                </restriction>
-                            </simpleType>
-                        </element>
-                    </sequence>
-                </complexType>
+            <element name="edgesCount">
+                <simpleType>
+                    <restriction base="positiveInteger">
+                        <minInclusive value="4"/>
+                        <maxExclusive value="15"/>
+                    </restriction>
+                </simpleType>
             </element>
-            <element name="value" type="float" minOccurs="0"/>
-            <element name="date" type="date"/>
-            <element name="time" type="time"/>
         </sequence>
-        <attribute name="name" type="Name">
-            <simpleType>
-                <restriction base="ID"/>
-            </simpleType>
-        </attribute>
     </complexType>
-    <!--<attribute name="name" type="Name">-->
-        <!--<simpleType>-->
-            <!--<restriction base="ID"/>-->
-        <!--</simpleType>-->
-    <!--</attribute>-->
 </schema>

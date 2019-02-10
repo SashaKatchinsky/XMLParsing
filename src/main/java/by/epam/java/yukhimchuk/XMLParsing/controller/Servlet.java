@@ -1,56 +1,76 @@
-package by.epam.java.yukhimchuk.XMLParsing.servlets;
+package by.epam.java.yukhimchuk.XMLParsing.controller;
 
 import by.epam.java.yukhimchuk.XMLParsing.bean.Gem;
 import by.epam.java.yukhimchuk.XMLParsing.builder.DOMBuilder;
 import by.epam.java.yukhimchuk.XMLParsing.builder.Director;
 import by.epam.java.yukhimchuk.XMLParsing.builder.SAXBuilder;
 import by.epam.java.yukhimchuk.XMLParsing.builder.StAXBuilder;
+import by.epam.java.yukhimchuk.XMLParsing.exception.*;
+import by.epam.java.yukhimchuk.XMLParsing.validation.XMLValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+@WebServlet("/parsing")
 @MultipartConfig
 public class Servlet extends HttpServlet {
-    private static final Logger logger = LogManager.getLogger(Servlet.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(Servlet.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+        Part filePart = request.getPart("file");
+        InputStream fileContent1 = filePart.getInputStream();
         InputStream fileContent = filePart.getInputStream();
-        String table = null;
-        String parserName = request.getParameter("parserChooser");
-        List<String> columnList = formColumnName();
+        XMLValidator xmlValidator = XMLValidator.getInstance();
+        boolean isValid = true;
         try {
-            if (parserName.equalsIgnoreCase("dom")) {
-                table = formTable(columnList , Director.createGemList(new DOMBuilder(fileContent)));
-            } else if (parserName.equalsIgnoreCase("sax")) {
-                table = formTable(columnList , Director.createGemList(new SAXBuilder(fileContent)));
-            } else {
-                table = formTable(columnList , Director.createGemList(new StAXBuilder(fileContent)));
+            isValid = xmlValidator.isValid(new StreamSource(fileContent1) , "Gems.xsd");
+        } catch (InvalidInputStream invalidInputStream) {
+            invalidInputStream.printStackTrace();
+        }
+        if (isValid) {
+        String table = null;
+            String parserName = request.getParameter("parserChooser");
+            List<String> columnList = formColumnName();
+            try {
+                if (parserName.equalsIgnoreCase("dom")) {
+                    table = formTable(columnList, Director.createGemList(new DOMBuilder(fileContent)));
+                } else if (parserName.equalsIgnoreCase("sax")) {
+                    table = formTable(columnList, Director.createGemList(new SAXBuilder(fileContent)));
+                } else {
+                    table = formTable(columnList, Director.createGemList(new StAXBuilder(fileContent)));
+                }
+                request.setAttribute("table", table);
+                request.setAttribute("parser", parserName);
+                request.getRequestDispatcher("/jsp/result.jsp").forward(request, response);
+            } catch (SAXException | XMLStreamException | ParserConfigurationException e) {
+                LOGGER.fatal(e);
+                try {
+                    throw new ParserException(e);
+                } catch (ParserException e1) {
+                    e1.printStackTrace();
+                }
+            } catch (DOMBuildException | StAXBuildException | SAXBuildException e) {
+                LOGGER.fatal(e);
             }
-            request.setAttribute("table", table);
-            request.setAttribute("parser" , parserName);
-            request.getRequestDispatcher("/jsp/result.jsp").forward(request, response);
-        } catch (SAXException e) {
-            logger.fatal(e);
-        } catch (ParserConfigurationException e) {
-            logger.fatal(e);
-        } catch (XMLStreamException e) {
-            logger.fatal(e);
+        } else {
+            request.getRequestDispatcher("/jsp/fileError.jsp").forward(request , response);
         }
     }
 
